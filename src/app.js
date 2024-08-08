@@ -13,7 +13,7 @@ app.use(express.urlencoded({extended: true, limit: "16kb"}))
 app.use(express.static("public"))
 app.use(cookieParser())
 
-app.get("/api/v1/test", () => {
+app.get("/api/v1/test", (req, res) => {
     res.send(201).json("Backend Called")
 });
 
