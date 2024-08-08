@@ -15,7 +15,7 @@ app.use(cookieParser())
 
 import userRouter from "./routes/user.routes.js"
 import errorMiddleware from "./utils/errorResponse.js";
-app.use("/api/v1/users", userRouter)
+app.use("/users", userRouter)
 
 app.use(errorMiddleware);
 
