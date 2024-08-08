@@ -13,6 +13,10 @@ app.use(express.urlencoded({extended: true, limit: "16kb"}))
 app.use(express.static("public"))
 app.use(cookieParser())
 
+app.get("/api/v1/test", () => {
+    res.send(201).json("Backend Called")
+});
+
 import userRouter from "./routes/user.routes.js"
 import errorMiddleware from "./utils/errorResponse.js";
 app.use("/api/v1/users", userRouter)
