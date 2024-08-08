@@ -19,12 +19,59 @@ const generateAccessAndRefreshToken = async (userId) => {
     }
 }
 
+// const registerUser = asyncHandler(async (req, res) => {
+//     const { username, email, fullName, password } = req.body;
+//     const profileImage = req.file?.path;
+
+//     // Validate required fields
+//     if ([username, email, fullName, password].some((field) => field?.trim() === "")) {
+//         throw new ApiError(400, "All Fields are required");
+//     }
+
+//     // Check if user already exists
+//     const existedUser = await User.findOne({ email });
+//     if (existedUser) {
+//         throw new ApiError(401, "User already exists");
+//     }
+
+//     // Ensure profile image is provided
+//     if (!profileImage) {
+//         throw new ApiError(400, "Profile Image Required");
+//     }
+
+//     // Upload profile image to Cloudinary
+//     let profileImagePath;
+//     try {
+//         profileImagePath = await uploadOnCloudinary(profileImage);
+//     } catch (error) {
+//         throw new ApiError(500, "Failed to upload profile image");
+//     }
+
+//     // Create new user
+//     const user = await User.create({
+//         username,
+//         email,
+//         fullName,
+//         password,
+//         profileImage: profileImagePath.url,
+//     });
+
+//     // Retrieve the created user without sensitive information
+//     const createdUser = await User.findById(user._id).select("-password -refreshToken");
+//     if (!createdUser) {
+//         throw new ApiError(500, "Something Went Wrong while registering user");
+//     }
+
+//     return res.status(201).json(
+//         new ApiResponse(200, createdUser, "User Registered Successfully!")
+//     );
+// });
+
 const registerUser = asyncHandler(async (req, res) => {
-    const { username, email, fullName, password } = req.body;
-    const profileImage = req.files?.profileImage?.[0]?.path;
+    const { email, fullName, password } = req.body;
 
     // Validate required fields
-    if ([username, email, fullName, password].some((field) => field?.trim() === "")) {
+    if ([email, fullName, password].some((field) => field?.trim() === "")) {
         throw new ApiError(400, "All Fields are required");
     }
 
@@ -34,26 +81,11 @@ const registerUser = asyncHandler(async (req, res) => {
         throw new ApiError(401, "User already exists");
     }
 
-    // Ensure profile image is provided
-    if (!profileImage) {
-        throw new ApiError(400, "Profile Image Required");
-    }
-
-    // Upload profile image to Cloudinary
-    let profileImagePath;
-    try {
-        profileImagePath = await uploadOnCloudinary(profileImage);
-    } catch (error) {
-        throw new ApiError(500, "Failed to upload profile image");
-    }
-
     // Create new user
     const user = await User.create({
-        username,
         email,
         fullName,
         password,
-        profileImage: profileImagePath.url,
     });
 
     // Retrieve the created user without sensitive information

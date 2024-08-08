@@ -3,11 +3,11 @@ import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
 
 const userSchema = new Schema({
-    username: {
-        type: String,
-        required: true,
-        trim: true
-    },
+    // username: {
+    //     type: String,
+    //     required: true,
+    //     trim: true
+    // },
     email: {
         type: String,
         required: true,
@@ -20,11 +20,11 @@ const userSchema = new Schema({
         required: true,
         trim: true
     },
-    profileImage: {
-        type: String, // we can use cloudinary 
-        required: true,
-        trim: true
-    },
+    // profileImage: {
+    //     type: String, // we can use cloudinary 
+    //     required: true,
+    //     trim: true
+    // },
     watchHistory: [{
         type: Schema.Types.ObjectId,
         ref: "Video"
