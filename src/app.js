@@ -14,7 +14,7 @@ app.use(express.static("public"))
 app.use(cookieParser())
 
 app.get("/api/v1/test", (req, res) => {
-    res.send(201).json("Backend Called")
+    res.status(201).json({data: "BakcendCalled"})
 });
 
 import userRouter from "./routes/user.routes.js"
